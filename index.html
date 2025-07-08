@@ -824,7 +824,7 @@
                     <option value="apar">APAR</option>
                     <option value="forklift">Forklift</option>
                     <option value="eyewash">Eyewash</option>
-                    <option value="emergency">Emergency Door</option>
+                    <option value="Sliding">Sliding Door</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -867,7 +867,7 @@
                 <div class="priority-card warning">
                     <div class="priority-number">2</div>
                     <div class="priority-content">
-                        <h3>🚪 Emergency Door Issues</h3>
+                        <h3>🚪 Sliding Door Issues</h3>
                         <div class="priority-count">4 Issues</div>
                         <div class="priority-percentage">29% dari total masalah</div>
                         <div class="priority-action">Urgent Repairs Needed</div>
@@ -911,9 +911,9 @@
                 <div class="metric-description">5 unit eyewash, 3 perlu maintenance urgent</div>
             </div>
             <div class="metric-card">
-                <div class="metric-title">🚪 Emergency Door Performance</div>
-                <div class="metric-value" id="emergency-performance">30%</div>
-                <div class="metric-description">6 unit emergency door, 4 perlu perbaikan</div>
+                <div class="metric-title">🚪 Sliding Door Performance</div>
+                <div class="metric-value" id="Sliding-performance">30%</div>
+                <div class="metric-description">6 unit Sliding door, 4 perlu perbaikan</div>
             </div>
         </div>
 
@@ -995,7 +995,7 @@
                 issues: 3,
                 percentage: 40
             },
-            emergency: {
+            Sliding: {
                 total: 6,
                 issues: 4,
                 percentage: 33
@@ -1025,7 +1025,6 @@
         let totalEquipment = 214;
         let totalIssues = 14;
         let overallPerformance = 93;
-
         // Initialize all charts
         function initializeCharts() {
             // Issues Distribution Chart (Bar)
@@ -1033,7 +1032,7 @@
             issuesChart = new Chart(issuesCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['APAR', 'Forklift', 'Eyewash', 'Emergency'],
+                    labels: ['APAR', 'Forklift', 'Eyewash', 'Sliding'],
                     datasets: [{
                         label: 'Issues Count',
                         data: [0, 7, 3, 4],
@@ -1150,7 +1149,7 @@
                             { x: 95, y: 0, equipment: 'APAR' },
                             { x: 12, y: 7, equipment: 'Forklift' },
                             { x: 40, y: 3, equipment: 'Eyewash' },
-                            { x: 30, y: 4, equipment: 'Emergency Door' }
+                            { x: 30, y: 4, equipment: 'Sliding Door' }
                         ],
                         backgroundColor: [
                             '#22c55e',
@@ -1233,7 +1232,7 @@
                 realSafetyData.apar.issues,
                 realSafetyData.forklift.issues,
                 realSafetyData.eyewash.issues,
-                realSafetyData.emergency.issues
+                realSafetyData.Sliding.issues
             ];
 
             // Update Trend Chart
@@ -1260,7 +1259,7 @@
                 { x: realSafetyData.apar.percentage, y: realSafetyData.apar.issues, equipment: 'APAR' },
                 { x: realSafetyData.forklift.percentage, y: realSafetyData.forklift.issues, equipment: 'Forklift' },
                 { x: realSafetyData.eyewash.percentage, y: realSafetyData.eyewash.issues, equipment: 'Eyewash' },
-                { x: realSafetyData.emergency.percentage, y: realSafetyData.emergency.issues, equipment: 'Emergency Door' }
+                { x: realSafetyData.Sliding.percentage, y: realSafetyData.Sliding.issues, equipment: 'Sliding Door' }
             ];
 
             // Animate all chart updates
@@ -1294,11 +1293,11 @@
                 }
             }
             
-            if (realSafetyData.emergency.issues > 0) {
-                for (let i = 1; i <= realSafetyData.emergency.issues; i++) {
+            if (realSafetyData.Sliding.issues > 0) {
+                for (let i = 1; i <= realSafetyData.Sliding.issues; i++) {
                     criticalIssues.push({
                         priority: 'High',
-                        equipment: 'Emergency Door',
+                        equipment: 'Sliding Door',
                         icon: '🚪',
                         location: ['Office', 'SPS3', 'Teknik', 'HOD'][Math.floor(Math.random() * 4)],
                         issueType: ['Lock Malfunction', 'Exit Sign Broken', 'Door Stuck', 'Alarm Not Working'][Math.floor(Math.random() * 4)],
@@ -1397,8 +1396,8 @@
         function parseCSVData(csvText) {
             const lines = csvText.split('\n').filter(line => line.trim());
             const data = { 
-                apar: 0, forklift: 0, eyewash: 0, emergency: 0, 
-                aparIssues: 0, forkliftIssues: 0, eyewashIssues: 0, emergencyIssues: 0 
+                apar: 0, forklift: 0, eyewash: 0, Sliding: 0, 
+                aparIssues: 0, forkliftIssues: 0, eyewashIssues: 0, SlidingIssues: 0 
             };
             
             let currentSection = '';
@@ -1421,12 +1420,12 @@
                     } else if (headerText.includes('forklift') || headerText.includes('shift') || headerText.includes('operator')) {
                         currentSection = 'forklift';
                         console.log('🚜 Found Forklift section at line', index + 1);
-                    } else if (headerText.includes('eyewash') || headerText.includes('rambu') || headerText.includes('emergency shower')) {
+                    } else if (headerText.includes('eyewash') || headerText.includes('rambu') || headerText.includes('Sliding shower')) {
                         currentSection = 'eyewash';
                         console.log('👁️ Found Eyewash section at line', index + 1);
-                    } else if (headerText.includes('emergency') || headerText.includes('pintu') || headerText.includes('grendel') || headerText.includes('door')) {
-                        currentSection = 'emergency';
-                        console.log('🚪 Found Emergency Door section at line', index + 1);
+                    } else if (headerText.includes('Sliding') || headerText.includes('pintu') || headerText.includes('grendel') || headerText.includes('door')) {
+                        currentSection = 'Sliding';
+                        console.log('🚪 Found Sliding Door section at line', index + 1);
                     }
                     
                 } else if (cells.length >= 3 && cells[0] && cells[0] !== 'No' && currentSection && !isNaN(cells[0])) {
@@ -1460,7 +1459,7 @@
                 apar: `${data.apar} total, ${data.aparIssues} issues`,
                 forklift: `${data.forklift} total, ${data.forkliftIssues} issues`,
                 eyewash: `${data.eyewash} total, ${data.eyewashIssues} issues`,
-                emergency: `${data.emergency} total, ${data.emergencyIssues} issues`,
+                Sliding: `${data.Sliding} total, ${data.SlidingIssues} issues`,
                 filters: currentFilters
             });
             
@@ -1532,7 +1531,7 @@
             const priorityCards = document.querySelectorAll('.priority-card');
             
             cards.forEach((card, index) => {
-                const equipmentTypes = ['apar', 'forklift', 'eyewash', 'emergency'];
+                const equipmentTypes = ['apar', 'forklift', 'eyewash', 'Sliding'];
                 const currentType = equipmentTypes[index];
                 
                 if (currentFilters.equipment === 'all' || currentFilters.equipment === currentType) {
@@ -1544,7 +1543,7 @@
             });
             
             priorityCards.forEach((card, index) => {
-                const equipmentTypes = ['forklift', 'emergency', 'eyewash', 'apar'];
+                const equipmentTypes = ['forklift', 'Sliding', 'eyewash', 'apar'];
                 const currentType = equipmentTypes[index];
                 
                 if (currentFilters.equipment === 'all' || currentFilters.equipment === currentType) {
@@ -1579,7 +1578,7 @@
                 'apar': 'APAR',
                 'forklift': 'Forklift',
                 'eyewash': 'Eyewash',
-                'emergency': 'Emergency Door'
+                'Sliding': 'Sliding Door'
             };
             return equipment[value] || value;
         }
@@ -1699,16 +1698,16 @@
             realSafetyData.eyewash.percentage = realSafetyData.eyewash.total > 0 ? 
                 Math.round(((realSafetyData.eyewash.total - realSafetyData.eyewash.issues) / realSafetyData.eyewash.total) * 100) : 0;
             
-            realSafetyData.emergency.total = data.emergency || 6;
-            realSafetyData.emergency.issues = data.emergencyIssues || 4;
-            realSafetyData.emergency.percentage = realSafetyData.emergency.total > 0 ? 
-                Math.round(((realSafetyData.emergency.total - realSafetyData.emergency.issues) / realSafetyData.emergency.total) * 100) : 0;
+            realSafetyData.Sliding.total = data.Sliding || 6;
+            realSafetyData.Sliding.issues = data.SlidingIssues || 4;
+            realSafetyData.Sliding.percentage = realSafetyData.Sliding.total > 0 ? 
+                Math.round(((realSafetyData.Sliding.total - realSafetyData.Sliding.issues) / realSafetyData.Sliding.total) * 100) : 0;
             
             // Recalculate totals
             const newTotalEquipment = realSafetyData.apar.total + realSafetyData.forklift.total + 
-                                     realSafetyData.eyewash.total + realSafetyData.emergency.total;
+                                     realSafetyData.eyewash.total + realSafetyData.Sliding.total;
             const newTotalIssues = realSafetyData.apar.issues + realSafetyData.forklift.issues + 
-                                  realSafetyData.eyewash.issues + realSafetyData.emergency.issues;
+                                  realSafetyData.eyewash.issues + realSafetyData.Sliding.issues;
             
             // Update global variables
             window.totalEquipment = newTotalEquipment;
@@ -1728,7 +1727,7 @@
                 apar: `${realSafetyData.apar.total} units, ${realSafetyData.apar.issues} issues`,
                 forklift: `${realSafetyData.forklift.total} units, ${realSafetyData.forklift.issues} issues`,
                 eyewash: `${realSafetyData.eyewash.total} units, ${realSafetyData.eyewash.issues} issues`,
-                emergency: `${realSafetyData.emergency.total} units, ${realSafetyData.emergency.issues} issues`,
+                Sliding: `${realSafetyData.Sliding.total} units, ${realSafetyData.Sliding.issues} issues`,
                 overall: `${window.overallPerformance}%`
             });
         }
@@ -1753,7 +1752,7 @@
             document.getElementById('apar-performance').textContent = realSafetyData.apar.percentage + '%';
             document.getElementById('forklift-performance').textContent = realSafetyData.forklift.percentage + '%';
             document.getElementById('eyewash-performance').textContent = realSafetyData.eyewash.percentage + '%';
-            document.getElementById('emergency-performance').textContent = realSafetyData.emergency.percentage + '%';
+            document.getElementById('Sliding-performance').textContent = realSafetyData.Sliding.percentage + '%';
             
             // Update card colors
             updateCardColors();
@@ -1813,20 +1812,20 @@
             setTimeout(() => {
                 // Calculate priority percentages with current filters
                 const forkliftPct = window.totalIssues > 0 ? Math.round((realSafetyData.forklift.issues / window.totalIssues) * 100) : 0;
-                const emergencyPct = window.totalIssues > 0 ? Math.round((realSafetyData.emergency.issues / window.totalIssues) * 100) : 0;
+                const SlidingPct = window.totalIssues > 0 ? Math.round((realSafetyData.Sliding.issues / window.totalIssues) * 100) : 0;
                 const eyewashPct = window.totalIssues > 0 ? Math.round((realSafetyData.eyewash.issues / window.totalIssues) * 100) : 0;
                 
                 const filterInfo = `${getMonthName(currentFilters.month)} - ${currentFilters.area === 'all' ? 'Semua Area' : currentFilters.area}`;
                 
-                updateStatus(`📊 Priority (${filterInfo}): Forklift ${forkliftPct}% → Emergency ${emergencyPct}% → Eyewash ${eyewashPct}% → APAR 0%`);
+                updateStatus(`📊 Priority (${filterInfo}): Forklift ${forkliftPct}% → Sliding ${SlidingPct}% → Eyewash ${eyewashPct}% → APAR 0%`);
                 
                 console.log('📋 Filtered Priority Analysis:', {
                     filters: currentFilters,
                     rank1: `Forklift: ${realSafetyData.forklift.issues} issues (${forkliftPct}%)`,
-                    rank2: `Emergency: ${realSafetyData.emergency.issues} issues (${emergencyPct}%)`,
+                    rank2: `Sliding: ${realSafetyData.Sliding.issues} issues (${SlidingPct}%)`,
                     rank3: `Eyewash: ${realSafetyData.eyewash.issues} issues (${eyewashPct}%)`,
                     rank4: `APAR: ${realSafetyData.apar.issues} issues (0%)`,
-                    paretoRule: `${forkliftPct + emergencyPct}% masalah dari 2 equipment utama`,
+                    paretoRule: `${forkliftPct + SlidingPct}% masalah dari 2 equipment utama`,
                     dataSource: 'Google Sheets Real-time + Filters'
                 });
             }, 500);
@@ -1988,7 +1987,7 @@
                 recommendations.push({
                     priority: 'critical',
                     icon: '🚜',
-                    title: 'Emergency Forklift Maintenance Program',
+                    title: 'Sliding Forklift Maintenance Program',
                     description: `${realSafetyData.forklift.issues} dari ${realSafetyData.forklift.total} forklift membutuhkan perbaikan segera. Risiko kecelakaan kerja sangat tinggi.`,
                     actions: ['Hentikan operasi forklift rusak', 'Panggil teknisi certified', 'Audit safety checklist harian'],
                     timeline: 'Segera - 24 jam',
@@ -1997,17 +1996,17 @@
                 });
             }
             
-            // 2. Emergency Door Critical
-            if (realSafetyData.emergency.issues >= 3) {
+            // 2. Sliding Door Critical
+            if (realSafetyData.Sliding.issues >= 3) {
                 recommendations.push({
                     priority: 'critical',
                     icon: '🚪',
-                    title: 'Emergency Exit System Overhaul',
-                    description: `${realSafetyData.emergency.issues} emergency door bermasalah. Violasi regulasi K3 dan risiko evakuasi darurat.`,
+                    title: 'Sliding Exit System Overhaul',
+                    description: `${realSafetyData.Sliding.issues} Sliding door bermasalah. Violasi regulasi K3 dan risiko evakuasi darurat.`,
                     actions: ['Inspection semua pintu darurat', 'Perbaikan sistem grendel', 'Training evakuasi ulang'],
                     timeline: 'Max 3 hari',
                     cost: 'Estimasi Budget: Rp 8-12 juta',
-                    aiReason: 'Compliance audit menunjukkan emergency door issues = fine Rp 50-100 juta'
+                    aiReason: 'Compliance audit menunjukkan Sliding door issues = fine Rp 50-100 juta'
                 });
             }
             
